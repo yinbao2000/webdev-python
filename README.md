@@ -12,17 +12,22 @@ Prototype implementation of a simple web HTML with a little Bootstrap frontend w
 
 ## Execution:
 
-All commands should be invoked from `$GOPATH/src/webdev/`.
+All commands should be invoked from the source folder.
 
  * Launch http server on one terminal (default port 8000):
 
     `python -m http.server`
 
+   Or:
+
+    `python -m http.server <port number>`
+
+
 * On the second terminal, launch Python backend websocket server (running on port 8081):
 
-    `python server.py --log=info`
+    `python server.py`
 
- * launch front end through browser **http://localhost:8000**
+ * launch front end through browser **http://localhost:8000** (default), or the non-default `<port number>` specified in  `python -m http.server <port number>`.
 
      
  
