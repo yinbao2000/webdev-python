@@ -29,7 +29,31 @@ All commands should be invoked from the source folder.
 
  * launch front end through browser **http://localhost:8000** (default), or the non-default `<port number>` specified in  `python -m http.server <port number>`.
 
-     
+## Interactions of components:
+
+Sequence diagrams on how the components interact on a sample execution:
+
+```mermaid
+sequenceDiagram
+   participant browser
+   participant server
+   note over server: start HTTP server on port 8000 and websocket server on port 8081 (hardcoded in code now)
+   note over browser: User visits localhost:8000
+   browser->>server: HTTP GET request towards server
+   server->>browser: send over index.html and main.js to browser
+   note over browser: render the page from index.html (invoke main.js)
+   browser->>server: websocket connect
+   server->>browser: websocket connect accept
+   loop
+      note over browser: user interacts with HTML page
+      browser->>server: JSON message over websocket (when SUBMIT button is clicked)
+      note over server: process JSON message from browser
+      server->>browser: JSON message over websocket
+   end
+   note over browser: user closes web page or tab
+   browser-->server: websocket closes
+
+```     
  
 ## Issues:
 
