@@ -11,6 +11,9 @@
   $('#id-select').change(function() {
 
     console.log("id-select Changed. Value: ", $(this).val(), $('#id-select option:selected').text());
+
+    // clear out the previous text area below
+    $('#textInputBox').val("");
     
    })
 
@@ -28,16 +31,17 @@
         console.log("Speed: ", response.Speed);
         console.log("Error: ", response.Error);
 
-        // Results page update
-        
-        // Some results fields are filled based on client input (not from server)
-        $('#id-type').text($('#id-select option:selected').text());
+        // get the current time for result row
         var today= new Date().toLocaleString('en-US', { timeZone: 'UTC' });
-        $('#id-time').text(today);
 
-        // Some results are from server response
-        $('#id-speed').text(response.Speed);
-        $('#id-error').text(response.Error);
+        // Results page update - append a new row to the table
+
+        $('#results > tbody:last-child').append('<tr>')
+            .append($('<td>').append($('#id-select option:selected').text()))
+            .append($('<td>').append(response.Speed))
+            .append($('<td>').append(response.Error))
+            .append($('<td>').append(today))
+            .append('</tr>');
 
     }
     
